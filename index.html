@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nómina UEA · Acceso</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <div class="brand-mark">NU</div>
+    <p class="eyebrow">Gestión de personal</p>
+    <h1>Nómina UEA</h1>
+    <p class="muted">Ingresá con un usuario creado en Supabase.</p>
+    <form id="login-form" class="stack">
+      <label>Email<input id="email" type="email" autocomplete="email" required></label>
+      <label>Contraseña<input id="password" type="password" autocomplete="current-password" required></label>
+      <button class="btn primary" type="submit">Ingresar</button>
+      <p id="login-message" class="message" aria-live="polite"></p>
+    </form>
+    <details class="setup-note"><summary>Configuración inicial</summary><p>Completá <code>assets/js/config.js</code> con la URL y la Publishable key de tu proyecto Supabase.</p></details>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

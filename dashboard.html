@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nómina UEA · Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><div class="brand-mark">NU</div><div><strong>Nómina UEA</strong><small>Gestión de personal</small></div></div>
+      <nav class="nav-list">
+        <a class="nav-link active" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="empleados.html">Empleados</a>
+        <span class="nav-link disabled">Presentismo · próxima etapa</span>
+        <span class="nav-link disabled">Reportes · próxima etapa</span>
+      </nav>
+      <div class="sidebar-footer">
+        <div id="user-name" class="user-name">Usuario</div>
+        <div id="current-role" class="muted small-text"></div>
+        <button id="logout" class="btn secondary full" type="button">Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="page-header">
+        <div><p class="eyebrow">Resumen</p><h1>Dashboard</h1><p class="muted">Estado general de la nómina.</p></div>
+        <a class="btn primary" id="quick-new" href="empleado-form.html">+ Nuevo empleado</a>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card"><span>Empleados activos</span><strong id="dash-active">—</strong><small>Personas actualmente activas</small></article>
+        <article class="stat-card"><span>Empleados inactivos</span><strong id="dash-inactive">—</strong><small>Con baja lógica</small></article>
+        <article class="stat-card"><span>Ingresos este mes</span><strong id="dash-new">—</strong><small>Según fecha de ingreso</small></article>
+        <article class="stat-card"><span>Registros totales</span><strong id="dash-total">—</strong><small>Nómina histórica</small></article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="panel">
+          <div class="panel-heading"><div><h2>Últimos ingresos</h2><p class="muted">Los cinco ingresos más recientes.</p></div><a href="empleados.html">Ver nómina</a></div>
+          <div class="table-wrap"><table><thead><tr><th>Legajo</th><th>Empleado</th><th>Sector</th><th>Ingreso</th></tr></thead><tbody id="latest-body"><tr><td colspan="4">Cargando…</td></tr></tbody></table></div>
+        </article>
+        <article class="panel compact-panel">
+          <h2>Acciones rápidas</h2>
+          <a class="action-card" href="empleado-form.html"><strong>Alta de empleado</strong><span>Crear una nueva ficha.</span></a>
+          <a class="action-card" href="empleados.html"><strong>Buscar empleado</strong><span>Consultar, editar o dar de baja.</span></a>
+          <div class="action-card disabled"><strong>Presentismo</strong><span>Se habilitará en la próxima etapa.</span></div>
+        </article>
+      </section>
+      <p id="dashboard-message" class="message" aria-live="polite"></p>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/supabase-client.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nómina UEA · Presentismo</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="empleados.html"><span class="brand-mark small">NU</span><span>Nómina UEA</span></a>
+  <nav><a href="empleados.html">Empleados</a><a class="active" href="presentismo.html">Presentismo</a></nav>
+  <button id="logout" class="btn ghost">Salir</button>
+</header>
+<main class="container">
+  <section class="page-heading">
+    <div><p class="eyebrow">Registro diario</p><h1>Presentismo</h1><p class="muted">Cada empleado puede tener un único registro por fecha.</p></div>
+    <div class="toolbar"><label>Fecha <input id="attendance-date" type="date"></label><button id="save-attendance" class="btn primary">Guardar día</button></div>
+  </section>
+  <section class="panel table-panel">
+    <div class="table-wrap"><table><thead><tr><th>Legajo</th><th>Empleado</th><th>Estado</th><th>Entrada</th><th>Salida</th><th>Observación</th></tr></thead><tbody id="attendance-body"></tbody></table></div>
+    <p id="attendance-message" class="message"></p>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/config.js"></script><script src="assets/js/supabase-client.js"></script><script src="assets/js/common.js"></script><script src="assets/js/presentismo.js"></script>
+</body>
+</html>

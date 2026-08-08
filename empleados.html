@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nómina UEA · Empleados</title><link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-brand"><div class="brand-mark">NU</div><div><strong>Nómina UEA</strong><small>Gestión de personal</small></div></div>
+    <nav class="nav-list"><a class="nav-link" href="dashboard.html">Dashboard</a><a class="nav-link active" href="empleados.html">Empleados</a><span class="nav-link disabled">Presentismo · próxima etapa</span><span class="nav-link disabled">Reportes · próxima etapa</span></nav>
+    <div class="sidebar-footer"><div id="current-role" class="muted small-text"></div><button id="logout" class="btn secondary full">Cerrar sesión</button></div>
+  </aside>
+  <main class="content">
+    <header class="page-header"><div><p class="eyebrow">ABM</p><h1>Empleados</h1><p class="muted">Alta, consulta, modificación, importación y exportación de la nómina.</p></div><div class="header-actions"><button id="export-all" class="btn secondary" type="button">Exportar Excel</button><a id="new-employee" class="btn primary" href="empleado-form.html">+ Nuevo empleado</a></div></header>
+    <section class="stats-grid stats-compact"><article class="stat-card"><span>Activos</span><strong id="stat-active">—</strong></article><article class="stat-card"><span>Inactivos</span><strong id="stat-inactive">—</strong></article><article class="stat-card"><span>Resultados</span><strong id="stat-results">—</strong></article></section>
+    <section class="panel">
+      <div class="toolbar"><label class="search-field">Buscar<input id="search" type="search" placeholder="Nombre, apellido, legajo, CUIL, gerencia o sector"></label><label>Estado<select id="status-filter"><option value="active">Activos</option><option value="all">Todos</option><option value="inactive">Inactivos</option></select></label><button id="refresh" class="btn secondary">Actualizar</button></div>
+      <p id="employees-message" class="message"></p>
+      <div class="table-wrap"><table><thead><tr><th>Legajo</th><th>Empleado</th><th>CUIL</th><th>Organización</th><th>Ingreso</th><th>Estado</th><th></th></tr></thead><tbody id="employees-body"></tbody></table></div>
+      <div class="toolbar" style="margin-top:1rem;justify-content:center;align-items:center;gap:.75rem;flex-wrap:wrap">
+        <button id="page-prev" class="btn secondary" type="button">← Anterior</button>
+        <span id="page-info" class="muted small-text">Cargando…</span>
+        <button id="page-next" class="btn secondary" type="button">Siguiente →</button>
+      </div>
+    </section>
+    <section class="panel io-panel">
+      <div class="panel-heading"><div><p class="eyebrow">Datos</p><h2>Importar y exportar</h2><p class="muted">Descargá una copia completa, exportá la búsqueda actual o cargá una nómina desde Excel/CSV.</p></div></div>
+      <div class="io-actions">
+        <button id="export-filtered" class="btn secondary" type="button">Exportar resultados visibles</button>
+        <button id="download-template" class="btn secondary" type="button">Descargar plantilla</button>
+      </div>
+      <div id="import-box" class="import-box">
+        <div class="form-grid import-controls">
+          <label>Archivo (.xlsx, .xls, .csv)<input id="import-file" type="file" accept=".xlsx,.xls,.csv"></label>
+          <label>Si el legajo ya existe<select id="import-mode"><option value="update">Actualizar existente y agregar nuevos</option><option value="new">Sólo agregar nuevos</option></select></label>
+        </div>
+        <p class="muted small-text">La primera fila debe contener los encabezados. Se valida legajo, nombre, apellido, CUIL, duplicados, fechas y formatos antes de escribir en la base.</p>
+        <div id="import-preview" class="hidden">
+          <div class="preview-heading"><div id="import-stats"></div><button id="run-import" class="btn primary" type="button" disabled>Importar filas válidas</button></div>
+          <div class="table-wrap import-preview-table"><table><thead><tr><th>Fila</th><th>Legajo</th><th>Empleado</th><th>CUIL</th><th>Validación</th></tr></thead><tbody id="import-preview-body"></tbody></table></div>
+        </div>
+      </div>
+      <p id="io-message" class="message"></p>
+    </section>
+  </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script><script src="assets/js/config.js"></script><script src="assets/js/supabase-client.js"></script><script src="assets/js/common.js"></script><script src="assets/js/empleados.js"></script><script src="assets/js/import-export.js"></script>
+</body></html>
