@@ -1,0 +1,36 @@
+
+/* Nómina UEA v1.2 · Novedades */
+.tabs-panel{padding:8px;margin-bottom:18px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab-button{border:0;background:transparent;color:var(--muted);font-weight:800;padding:10px 14px;border-radius:9px;cursor:pointer}
+.tab-button:hover,.tab-button.active{background:#e7efee;color:var(--primary2)}
+.novedades-grid{grid-template-columns:minmax(280px,.8fr) minmax(0,1.8fr)}
+.search-results{display:grid;gap:7px;margin-top:10px;max-height:300px;overflow:auto}
+.search-result{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px;text-align:left;cursor:pointer;color:var(--ink)}
+.search-result:hover{background:#eef3f4}
+.search-result strong,.selected-employee strong{display:block}
+.search-result small,.selected-employee small{color:var(--muted)}
+.selected-employee{margin-top:12px;border:1px solid #bcd8d3;background:#eef7f5;border-radius:12px;padding:14px}
+.notice{border-radius:10px;padding:11px 13px;font-size:.86rem}
+.notice.warning{background:#fff5dd;border:1px solid #edd7a5;color:#765919}
+.static-actions{position:static;background:transparent;backdrop-filter:none;padding:0;margin-top:4px}
+.novelty-toolbar{grid-template-columns:minmax(260px,1fr) 180px 180px auto}
+.pagination{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.report-toolbar{grid-template-columns:170px 170px 160px auto auto}
+.report-table-wrap{max-height:62vh;border:1px solid var(--line);border-radius:12px}
+.report-table-wrap table{min-width:max-content}
+.report-table-wrap th,.report-table-wrap td{white-space:nowrap}
+.report-table-wrap thead{position:sticky;top:0;background:#fff;z-index:2}
+.report-table-wrap th:nth-child(-n+5),.report-table-wrap td:nth-child(-n+5){position:sticky;background:#fff;z-index:1}
+.report-table-wrap th:nth-child(1),.report-table-wrap td:nth-child(1){left:0;min-width:85px}
+.report-table-wrap th:nth-child(2),.report-table-wrap td:nth-child(2){left:85px;min-width:130px}
+.report-table-wrap th:nth-child(3),.report-table-wrap td:nth-child(3){left:215px;min-width:130px}
+.report-table-wrap th:nth-child(4),.report-table-wrap td:nth-child(4){left:345px;min-width:145px}
+.report-table-wrap th:nth-child(5),.report-table-wrap td:nth-child(5){left:490px;min-width:150px}
+.report-summary{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;color:var(--muted);font-size:.86rem}
+.report-summary span{background:#eef3f4;border-radius:999px;padding:6px 10px}
+.code-cell{text-align:center;font-weight:800}
+.status-vigente{background:#e1f3eb;color:#1d6a4e}
+.status-futura{background:#e8eef8;color:#355c95}
+.status-finalizada{background:#eee;color:#666}
+@media(max-width:900px){.novedades-grid{grid-template-columns:1fr}.novelty-toolbar,.report-toolbar{grid-template-columns:1fr}}

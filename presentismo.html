@@ -3,26 +3,247 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Nómina UEA · Presentismo</title>
+  <title>Nómina UEA · Novedades</title>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/novedades.css">
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="empleados.html"><span class="brand-mark small">NU</span><span>Nómina UEA</span></a>
-  <nav><a href="empleados.html">Empleados</a><a class="active" href="presentismo.html">Presentismo</a></nav>
-  <button id="logout" class="btn ghost">Salir</button>
-</header>
-<main class="container">
-  <section class="page-heading">
-    <div><p class="eyebrow">Registro diario</p><h1>Presentismo</h1><p class="muted">Cada empleado puede tener un único registro por fecha.</p></div>
-    <div class="toolbar"><label>Fecha <input id="attendance-date" type="date"></label><button id="save-attendance" class="btn primary">Guardar día</button></div>
-  </section>
-  <section class="panel table-panel">
-    <div class="table-wrap"><table><thead><tr><th>Legajo</th><th>Empleado</th><th>Estado</th><th>Entrada</th><th>Salida</th><th>Observación</th></tr></thead><tbody id="attendance-body"></tbody></table></div>
-    <p id="attendance-message" class="message"></p>
-  </section>
-</main>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">NU</div>
+      <div><strong>Nómina UEA</strong><small>Gestión de personal</small></div>
+    </div>
+    <nav class="nav-list">
+      <a class="nav-link" href="dashboard.html">Dashboard</a>
+      <a class="nav-link" href="empleados.html">Empleados</a>
+      <a class="nav-link active" href="presentismo.html">Novedades</a>
+      <span class="nav-link disabled">Reportes · próxima etapa</span>
+    </nav>
+    <div class="sidebar-footer">
+      <div id="current-role" class="muted small-text"></div>
+      <button id="logout" class="btn secondary full" type="button">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Ausentismo y licencias</p>
+        <h1>Novedades</h1>
+        <p class="muted">Registrá períodos de enfermedad, vacaciones, ART, National Med y otras ausencias.</p>
+      </div>
+    </header>
+
+    <section class="panel tabs-panel">
+      <div class="tabs">
+        <button class="tab-button active" data-tab="carga" type="button">Nueva novedad</button>
+        <button class="tab-button" data-tab="consulta" type="button">Consultar novedades</button>
+        <button class="tab-button" data-tab="reporte" type="button">Reporte diario</button>
+        <button class="tab-button" data-tab="feriados" type="button">Feriados</button>
+      </div>
+    </section>
+
+    <section id="tab-carga" class="tab-content">
+      <div class="panel-grid novedades-grid">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">1 · Persona</p>
+              <h2>Buscar empleado</h2>
+              <p class="muted">Buscá por legajo, CUIL, apellido o nombre.</p>
+            </div>
+          </div>
+          <label>Buscar
+            <input id="employee-search" type="search" autocomplete="off" placeholder="Ej.: 4077, 20-..., Pérez">
+          </label>
+          <div id="employee-results" class="search-results"></div>
+          <div id="selected-employee" class="selected-employee hidden"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">2 · Novedad</p><h2 id="novelty-form-title">Nueva novedad</h2></div>
+            <button id="cancel-edit" class="btn secondary small hidden" type="button">Cancelar edición</button>
+          </div>
+
+          <form id="novelty-form" class="stack">
+            <input id="novelty-id" type="hidden">
+
+            <div class="form-grid">
+              <label>Tipo *
+                <select id="novelty-type" required></select>
+              </label>
+
+              <label id="subtype-wrap" class="hidden">Motivo / Subtipo
+                <select id="novelty-subtype">
+                  <option value="">Seleccionar</option>
+                  <option value="estudio">Estudio</option>
+                  <option value="fallecimiento">Fallecimiento de familiar</option>
+                  <option value="mudanza">Mudanza</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </label>
+
+              <label>Desde *
+                <input id="date-from" type="date" required>
+              </label>
+
+              <label>Hasta *
+                <input id="date-to" type="date" required>
+              </label>
+
+              <label>Jornadas
+                <input id="workdays" type="number" min="0" step="1" placeholder="Opcional">
+              </label>
+
+              <label>Origen
+                <select id="novelty-origin">
+                  <option value="">Sin especificar</option>
+                  <option value="Mail">Mail</option>
+                  <option value="National Med">National Med</option>
+                  <option value="ART">ART</option>
+                  <option value="RRHH">RRHH</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </label>
+
+              <label>Fecha del evento / accidente
+                <input id="event-date" type="date">
+              </label>
+
+              <label>Fecha de atención
+                <input id="attention-date" type="date">
+              </label>
+
+              <label>Próxima revisión / evaluación
+                <input id="review-date" type="date">
+              </label>
+
+              <label class="span-2">Observación
+                <textarea id="novelty-notes" rows="4" placeholder="Detalle de certificado, aviso, evaluación, etc."></textarea>
+              </label>
+            </div>
+
+            <div id="overlap-warning" class="notice warning hidden"></div>
+            <div class="form-actions static-actions">
+              <button id="save-novelty" class="btn primary" type="submit">Guardar novedad</button>
+              <span id="novelty-message" class="message"></span>
+            </div>
+          </form>
+        </section>
+      </div>
+    </section>
+
+    <section id="tab-consulta" class="tab-content hidden">
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Historial</p>
+            <h2>Consultar novedades</h2>
+            <p class="muted">Se muestran 50 registros por página.</p>
+          </div>
+        </div>
+
+        <div class="toolbar novelty-toolbar">
+          <label class="search-field">Empleado
+            <input id="novelty-search" type="search" placeholder="Legajo, CUIL, nombre o apellido">
+          </label>
+          <label>Tipo
+            <select id="novelty-filter-type"><option value="">Todos</option></select>
+          </label>
+          <label>Estado
+            <select id="novelty-filter-status">
+              <option value="">Todos</option>
+              <option value="vigente">Vigentes hoy</option>
+              <option value="futura">Futuras</option>
+              <option value="finalizada">Finalizadas</option>
+            </select>
+          </label>
+          <button id="novelty-refresh" class="btn secondary" type="button">Actualizar</button>
+        </div>
+
+        <p id="novelty-list-message" class="message"></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Empleado</th><th>Tipo</th><th>Desde</th><th>Hasta</th><th>Jornadas</th><th>Origen</th><th>Estado</th><th></th></tr>
+            </thead>
+            <tbody id="novelty-body"></tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <button id="novelty-prev" class="btn secondary" type="button">← Anterior</button>
+          <span id="novelty-page-info" class="muted small-text"></span>
+          <button id="novelty-next" class="btn secondary" type="button">Siguiente →</button>
+        </div>
+      </section>
+    </section>
+
+    <section id="tab-reporte" class="tab-content hidden">
+      <section class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Matriz diaria</p>
+            <h2>Reporte diario</h2>
+            <p class="muted">SN = sin novedad. Los feriados se muestran como F. Si hay superposición, se combinan los códigos.</p>
+          </div>
+        </div>
+
+        <div class="toolbar report-toolbar">
+          <label>Desde<input id="report-from" type="date"></label>
+          <label>Hasta<input id="report-to" type="date"></label>
+          <label>Empleados
+            <select id="report-scope">
+              <option value="active">Activos</option>
+              <option value="all">Todos</option>
+            </select>
+          </label>
+          <button id="generate-report" class="btn secondary" type="button">Generar vista</button>
+          <button id="export-report" class="btn primary" type="button">Exportar Excel</button>
+        </div>
+
+        <p id="report-message" class="message"></p>
+        <div class="report-summary" id="report-summary"></div>
+        <div class="table-wrap report-table-wrap">
+          <table id="report-table">
+            <thead id="report-head"></thead>
+            <tbody id="report-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section id="tab-feriados" class="tab-content hidden">
+      <div class="panel-grid novedades-grid">
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Calendario</p><h2>Agregar feriado</h2></div></div>
+          <form id="holiday-form" class="stack">
+            <label>Fecha *<input id="holiday-date" type="date" required></label>
+            <label>Descripción *<input id="holiday-description" required placeholder="Ej.: Año Nuevo"></label>
+            <button id="save-holiday" class="btn primary" type="submit">Guardar feriado</button>
+          </form>
+          <p id="holiday-message" class="message"></p>
+        </section>
+        <section class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Registrados</p><h2>Feriados</h2></div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Fecha</th><th>Descripción</th><th></th></tr></thead>
+              <tbody id="holiday-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/config.js"></script><script src="assets/js/supabase-client.js"></script><script src="assets/js/common.js"></script><script src="assets/js/presentismo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/presentismo.js"></script>
 </body>
 </html>
