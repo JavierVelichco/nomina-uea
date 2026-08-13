@@ -12,7 +12,17 @@
     <div class="sidebar-footer"><div id="current-role" class="muted small-text"></div><button id="logout" class="btn secondary full">Cerrar sesión</button></div>
   </aside>
   <main class="content">
-    <header class="page-header"><div><p class="eyebrow">ABM</p><h1>Empleados</h1><p class="muted">Alta, consulta, modificación, importación y exportación de la nómina.</p></div><div class="header-actions"><button id="export-all" class="btn secondary" type="button">Exportar Excel</button><a id="new-employee" class="btn primary" href="empleado-form.html">+ Nuevo empleado</a></div></header>
+    <header class="page-header"><div><p class="eyebrow">ABM</p><h1>Empleados</h1><p class="muted">Alta, consulta, modificación, importación y exportación de la nómina.</p></div><div class="header-actions">
+  <label>Exportar
+    <select id="export-scope">
+      <option value="active" selected>Activos</option>
+      <option value="inactive">Inactivos</option>
+      <option value="all">Todos</option>
+    </select>
+  </label>
+  <button id="export-all" class="btn secondary" type="button">Exportar Excel</button>
+  <a id="new-employee" class="btn primary" href="empleado-form.html">+ Nuevo empleado</a>
+</div></header>
     <section class="stats-grid stats-compact"><article class="stat-card"><span>Activos</span><strong id="stat-active">—</strong></article><article class="stat-card"><span>Inactivos</span><strong id="stat-inactive">—</strong></article><article class="stat-card"><span>Resultados</span><strong id="stat-results">—</strong></article></section>
     <section class="panel">
       <div class="toolbar"><label class="search-field">Buscar<input id="search" type="search" placeholder="Nombre, apellido, legajo, CUIL, gerencia o sector"></label><label>Estado<select id="status-filter"><option value="active">Activos</option><option value="all">Todos</option><option value="inactive">Inactivos</option></select></label><button id="refresh" class="btn secondary">Actualizar</button></div>
